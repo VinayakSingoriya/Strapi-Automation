@@ -13,11 +13,11 @@ provider "aws" {
   secret_key = "i4giVTe3zMQBFSJPtxTHkfmmg2p7hiQw4Dgrk8oX"
 }
 
-resource "null_resource" "strapi_local" {
-  provisioner "local-exec" {
-    command = "./scripts/localDatabase.sh"
-  }
-}
+# resource "null_resource" "strapi_local" {
+#   provisioner "local-exec" {
+#     command = "./scripts/localDatabase.sh"
+#   }
+# }
 
 resource "aws_instance" "strapi" {
   ami           = "ami-0557a15b87f6559cf"
@@ -52,6 +52,12 @@ connection {
     destination = "/home/ubuntu/pullCode.sh"
   }
 
+  provisioner "file" {
+    source      = "/home/vinayak/Desktop/strapiApp/.env"
+    destination = "/home/ubuntu/.env"
+  }
+
+
   provisioner "remote-exec" {
     inline = [
       "sudo chmod +x /home/ubuntu/nginxSetup.sh",
@@ -59,7 +65,10 @@ connection {
       "sudo chmod +x /home/ubuntu/nodeSetup.sh",
       "/home/ubuntu/nodeSetup.sh",
       "sudo chmod +x /home/ubuntu/pullCode.sh",
-      "/home/ubuntu/pullCode.sh"
+      "/home/ubuntu/pullCode.sh",
+      "mv /home/ubuntu/.env /home/ubuntu/strapiApp/",
+      "sudo rm -f .env",
+      "cd /home/ubuntu/strapiApp/ && npm i && npm run develop"
     ]
   }
 }
