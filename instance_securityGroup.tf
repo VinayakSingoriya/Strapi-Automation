@@ -1,6 +1,6 @@
 
 resource "aws_security_group" "strapi_sg" {
-  name        = var.security_group_name
+  name        = var.instance_security_group_name
   description = "Allow TLS inbound traffic"
 
   dynamic "ingress" {

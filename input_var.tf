@@ -32,10 +32,6 @@ variable "public_key_path" {
   type = string
 }
 
-variable "security_group_name" {
-  type = string
-}
-
 variable "inbound_ports" {
   type = list(any)
 }
@@ -43,3 +39,21 @@ variable "inbound_ports" {
 variable "image_name" {
   type = string
 }
+
+variable "db_security_group_name" {
+  type = string
+}
+
+variable "db_username" {
+  type = string
+}
+
+variable "db_password" {
+  type = string
+}
+
+variable "instance_security_group_name" {
+  type = string
+}
+
+
