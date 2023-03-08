@@ -4,13 +4,13 @@ access_key = "AKIA2WXHFVL4V66VYRAY"
 secret_key = "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"
 
 # Instance Info
-ami_id        = "ami-0557a15b87f6559cf"
 instance_type = "t2.micro"
+image_name    = "ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"
 
 # Key-Pair Info
 key_name         = "strapi_automation"
-private_key_path = "/home/vinayak/Desktop/strapi_automation/terraform_dir/id_rsa"
-public_key_path  = "/home/vinayak/Desktop/strapi_automation/terraform_dir/id_rsa.pub"
+private_key_path = "/home/vinayak/.ssh/strapi_rsa"
+public_key_path  = "/home/vinayak/.ssh/strapi_rsa.pub"
 
 # Security Group Info
 security_group_name = "strapi_sg"

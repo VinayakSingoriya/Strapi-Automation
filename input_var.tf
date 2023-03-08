@@ -10,9 +10,11 @@ variable "secret_key" {
   type = string
 }
 
-variable "ami_id" {
-  type = string
-}
+# set access_key and secret_key to the environment varibles (i.e. we don't want to expose our credentials)
+# by using command
+# export TF_VAR_access_key=""
+# export TF_VAR_secret_key=""
+
 
 variable "instance_type" {
   type = string
@@ -36,4 +38,8 @@ variable "security_group_name" {
 
 variable "inbound_ports" {
   type = list(any)
+}
+
+variable "image_name" {
+  type = string
 }

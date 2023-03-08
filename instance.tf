@@ -1,5 +1,25 @@
+data "aws_ami" "ubuntu" {
+  most_recent = true
+  owners      = ["099720109477"]
+
+  filter {
+    name   = "name"
+    values = ["${var.image_name}"]
+  }
+
+  filter {
+    name   = "root-device-type"
+    values = ["ebs"]
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+}
+
 resource "aws_instance" "strapi" {
-  ami             = var.ami_id
+  ami             = data.aws_ami.ubuntu.id
   instance_type   = var.instance_type
   security_groups = [aws_security_group.strapi_sg.name]
   key_name        = aws_key_pair.deployer.key_name
@@ -45,9 +65,9 @@ resource "aws_instance" "strapi" {
       "/home/ubuntu/nodeSetup.sh",
       "sudo chmod +x /home/ubuntu/pullCode.sh",
       "/home/ubuntu/pullCode.sh",
-      "mv /home/ubuntu/.env /home/ubuntu/strapiApp/",
-      "sudo rm -f .env",
-      "cd /home/ubuntu/strapiApp/ && npm i && npm run develop"
+      # "mv /home/ubuntu/.env /home/ubuntu/strapiApp/",
+      # "sudo rm -f .env",
+      # "cd /home/ubuntu/strapiApp/ && npm i && npm run develop"
     ]
   }
 }
