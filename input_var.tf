@@ -40,17 +40,17 @@ variable "image_name" {
   type = string
 }
 
-variable "db_security_group_name" {
-  type = string
-}
+# variable "db_security_group_name" {
+#   type = string
+# }
 
-variable "db_username" {
-  type = string
-}
+# variable "db_username" {
+#   type = string
+# }
 
-variable "db_password" {
-  type = string
-}
+# variable "db_password" {
+#   type = string
+# }
 
 variable "instance_security_group_name" {
   type = string

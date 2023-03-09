@@ -17,8 +17,8 @@ instance_security_group_name = "strapi_sg"
 inbound_ports                = [80, 443, 22, 1337]
 
 # RDS Security Group Info
-db_security_group_name = "strapi_db"
+# db_security_group_name = "strapi_db"
 
-# RDS config
-db_username = "strapi"
-db_password = "password"
+# # RDS config
+# db_username = "strapi"
+# db_password = "password"
