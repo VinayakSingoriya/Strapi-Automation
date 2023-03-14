@@ -1,7 +1,7 @@
 # Region and Access Crendentials
 region     = "us-east-1"
-access_key = "AKIA2WXHFVL4V66VYRAY"
-secret_key = "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"
+access_key = ""
+secret_key = ""
 
 # Instance Info
 instance_type = "t2.micro"
