@@ -4,6 +4,10 @@ resource "aws_s3_bucket" "strapi_s3" {
   tags = {
     Name = "Strapi"
   }
+
+  provisioner "local-exec" {
+    command = "terraform output -json >> infrastructure.json"
+  }
 }
 
 resource "aws_s3_bucket_public_access_block" "strapi_s3" {

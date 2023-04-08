@@ -8,18 +8,18 @@ output "instance_details" {
 
 }
 
-# output "AWS_RDS_Details" {
-#   value = {
-#     db_name     = aws_db_instance.strapi.db_name
-#     db_hostname = aws_db_instance.strapi.address
-#     db_port     = aws_db_instance.strapi.port
-#     db_username = aws_db_instance.strapi.username
-#     db_endpoint = aws_db_instance.strapi.endpoint
-#     db_port     = aws_db_instance.strapi.port
+output "AWS_RDS_Details" {
+  value = {
+    db_name     = aws_db_instance.strapi.db_name
+    db_hostname = aws_db_instance.strapi.address
+    db_port     = aws_db_instance.strapi.port
+    db_username = aws_db_instance.strapi.username
+    db_endpoint = aws_db_instance.strapi.endpoint
+    db_port     = aws_db_instance.strapi.port
 
-#   }
+  }
 
-# }
+}
 
 
 output "AWS_S3_BUCKET_DETAILS" {

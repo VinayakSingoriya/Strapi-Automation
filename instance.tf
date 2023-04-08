@@ -52,10 +52,20 @@ resource "aws_instance" "strapi" {
   }
 
   provisioner "file" {
+    source      = "./config/ecosystem.config.js"
+    destination = "/home/ubuntu/ecosystem.config.js"
+  }
+
+
+  provisioner "file" {
     source      = "/home/vinayak/Desktop/strapiApp/.env"
     destination = "/home/ubuntu/.env"
   }
 
+  provisioner "file" {
+    source      = "./scripts/configENV.py"
+    destination = "/home/ubuntu/configENV.py"
+  }
 
   provisioner "remote-exec" {
     inline = [
@@ -63,11 +73,22 @@ resource "aws_instance" "strapi" {
       "/home/ubuntu/nginxSetup.sh",
       "sudo chmod +x /home/ubuntu/nodeSetup.sh",
       "/home/ubuntu/nodeSetup.sh",
-      "sudo chmod +x /home/ubuntu/pullCode.sh",
-      "/home/ubuntu/pullCode.sh",
-      # "mv /home/ubuntu/.env /home/ubuntu/strapiApp/",
-      # "sudo rm -f .env",
-      # "cd /home/ubuntu/strapiApp/ && npm i && npm run develop"
     ]
   }
+
+  provisioner "local-exec" {
+    command = "scripts/localConfig.sh"
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "sudo chmod +x /home/ubuntu/pullCode.sh",
+      "/home/ubuntu/pullCode.sh",
+      "mv /home/ubuntu/.env /home/ubuntu/strapiApp/.env",
+      "sudo rm -f .env",
+    ]
+  }
+
+
+
 }
