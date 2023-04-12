@@ -56,4 +56,15 @@ variable "instance_security_group_name" {
   type = string
 }
 
+variable "project_root_path" {
+  type = string
+}
+
+variable "gitUsername" {
+  type = string
+}
+
+variable "gitPassword" {
+  type = string
+}
 

@@ -22,3 +22,10 @@ db_security_group_name = "strapi_db"
 # RDS config
 db_username = "strapi"
 db_password = "password"
+
+#path
+project_root_path = "/home/vinayak/Desktop/strapiApp"
+
+#Git Credentials
+gitUsername = "VinayakSingoriya"
+gitPassword = "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"

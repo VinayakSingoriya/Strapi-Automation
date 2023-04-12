@@ -1,13 +1,10 @@
 #!/bin/bash
 
 echo '>> PULLING STRAPI APP SOURCE CODE .....'
-export GIT_USERNAME=VinayakSingoriya
-export GIT_PASSWORD=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
+export GIT_USERNAME=$1
+export GIT_PASSWORD=$2
 git clone https://$GIT_USERNAME:$GIT_PASSWORD@github.com/VinayakSingoriya/Strapi-Demo-App.git strapiApp
 echo '<<   STRAPI APP SOURCE CODE PULLED  >>'
-cd ./strapiApp/
-npm install
-NODE_ENV=production npm run build
 
 
 

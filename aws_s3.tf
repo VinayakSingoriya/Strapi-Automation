@@ -11,7 +11,7 @@ resource "aws_s3_bucket" "strapi_s3" {
       echo '{
         "s3_bucket_region": "${aws_s3_bucket.strapi_s3.region}",
         "s3_bucket_name": "${aws_s3_bucket.strapi_s3.bucket}"
-      }' > s3-details.json
+      }' > ./output/s3-details.json
     EOF
   }
 }

@@ -15,33 +15,16 @@ resource "null_resource" "save_output" {
   }
 
   provisioner "file" {
-    source      = "./instance-details.json"
-    destination = "/home/ubuntu/instance-details.json"
-  }
-
-  provisioner "file" {
-    source      = "./rds-details.json"
-    destination = "/home/ubuntu/rds-details.json"
-  }
-
-  provisioner "file" {
-    source      = "./s3-details.json"
-    destination = "/home/ubuntu/s3-details.json"
+    source      = "./output"
+    destination = "/home/ubuntu/.output"
   }
 
   provisioner "remote-exec" {
     inline = [
-      "sudo apt install python3-pip -y",
-      "pip3 install python-dotenv",
-      "python3 /home/ubuntu/configENV.py",
-      "cd /home/ubuntu/strapiApp/",
-      "export PATH=$PATH:/home/ubuntu/.nvm/versions/node/v16.20.0/bin",
-      "node -v && pm2 -v",
-      "/home/ubuntu/.nvm/versions/node/v16.20.0/bin/npm install",
-      "/home/ubuntu/.nvm/versions/node/v16.20.0/bin/pm2 start '/home/ubuntu/.nvm/versions/node/v16.20.0/bin/npm start'",
+      "/home/ubuntu/.scripts/setENV.sh ${var.access_key} ${var.secret_key}",
+      "/home/ubuntu/.scripts/deployStrapi.sh"
     ]
   }
-
 
 }
 
@@ -50,7 +33,7 @@ resource "null_resource" "delete_output" {
 
   provisioner "local-exec" {
     when    = destroy
-    command = "echo {} > instance-details.json && echo {} > rds-details.json && echo {} > s3-details.json"
+    command = "echo {} > ./output/instance-details.json && echo {} > ./output/rds-details.json && echo {} > ./output/s3-details.json"
   }
 
 }

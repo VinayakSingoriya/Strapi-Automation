@@ -37,42 +37,21 @@ resource "aws_instance" "strapi" {
   }
 
   provisioner "file" {
-    source      = "./scripts/nodeSetup.sh"
-    destination = "/home/ubuntu/nodeSetup.sh"
+    source      = "./scripts"
+    destination = "/home/ubuntu/.scripts"
   }
 
   provisioner "file" {
-    source      = "./scripts/nginxSetup.sh"
-    destination = "/home/ubuntu/nginxSetup.sh"
+    source      = "./config"
+    destination = "/home/ubuntu/.config"
   }
 
-  provisioner "file" {
-    source      = "./scripts/pullCode.sh"
-    destination = "/home/ubuntu/pullCode.sh"
-  }
-
-  provisioner "file" {
-    source      = "./config/ecosystem.config.js"
-    destination = "/home/ubuntu/ecosystem.config.js"
-  }
-
-
-  provisioner "file" {
-    source      = "/home/vinayak/Desktop/strapiApp/.env"
-    destination = "/home/ubuntu/.env"
-  }
-
-  provisioner "file" {
-    source      = "./scripts/configENV.py"
-    destination = "/home/ubuntu/configENV.py"
-  }
 
   provisioner "remote-exec" {
     inline = [
-      "sudo chmod +x /home/ubuntu/nginxSetup.sh",
-      "/home/ubuntu/nginxSetup.sh",
-      "sudo chmod +x /home/ubuntu/nodeSetup.sh",
-      "/home/ubuntu/nodeSetup.sh",
+      # "sudo chmod +x /home/ubuntu/.config/*",
+      "sudo chmod +x /home/ubuntu/.scripts/*",
+      "/home/ubuntu/.scripts/nodeSetup.sh",
     ]
   }
 
@@ -82,11 +61,13 @@ resource "aws_instance" "strapi" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo chmod +x /home/ubuntu/pullCode.sh",
-      "/home/ubuntu/pullCode.sh",
-      "mv /home/ubuntu/.env /home/ubuntu/strapiApp/.env",
-      "sudo rm -f .env",
+      "/home/ubuntu/.scripts/pullCode.sh ${var.gitUsername} ${var.gitPassword}",
     ]
+  }
+
+  provisioner "file" {
+    source      = "${var.project_root_path}/.env"
+    destination = "/home/ubuntu/strapiApp/.env"
   }
 
   provisioner "local-exec" {
@@ -94,7 +75,7 @@ resource "aws_instance" "strapi" {
       echo '{
         "instance_id": "${aws_instance.strapi.id}",
         "public_ip": "${aws_instance.strapi.public_ip}"
-      }' > instance-details.json
+      }' > ./output/instance-details.json
     EOF
   }
 

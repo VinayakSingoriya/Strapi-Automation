@@ -1,3 +1,4 @@
 .terraform/
 terraform.tfstate*
 output.json
+.terraform.lock.hcl

@@ -18,7 +18,7 @@ resource "aws_db_instance" "strapi" {
         "database_hostname": "${aws_db_instance.strapi.address}",
         "database_name": "${aws_db_instance.strapi.db_name}",
         "database_username": "${aws_db_instance.strapi.username}"
-      }' > rds-details.json
+      }' > ./output/rds-details.json
     EOF
   }
 }

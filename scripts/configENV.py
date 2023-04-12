@@ -1,9 +1,9 @@
 from dotenv import set_key, load_dotenv
 import json
-import os    
+import os   
+import sys 
 
-# file_path = "/home/ubuntu/output.json"
-rootPath = '/home/ubuntu/'
+rootPath = '/home/ubuntu/.output'
 
 
 try:
@@ -45,8 +45,9 @@ database_username = rds_data['database_username']
 database_password = 'password'
 
 #AWS Access
-aws_access_key_id = 'AKIA2WXHFVL4V66VYRAY'
-aws_access_secret = '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'
+args = sys.argv
+aws_access_key_id = args[1]
+aws_access_secret = args[2]
 
 #S3_Bucket
 aws_region = s3_data['s3_bucket_region']
