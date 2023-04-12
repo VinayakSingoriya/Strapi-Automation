@@ -35,8 +35,10 @@ resource "null_resource" "save_output" {
       "pip3 install python-dotenv",
       "python3 /home/ubuntu/configENV.py",
       "cd /home/ubuntu/strapiApp/",
-      "npm install",
-      "pm2 start 'npm start'",
+      "export PATH=$PATH:/home/ubuntu/.nvm/versions/node/v16.20.0/bin",
+      "node -v && pm2 -v",
+      "/home/ubuntu/.nvm/versions/node/v16.20.0/bin/npm install",
+      "/home/ubuntu/.nvm/versions/node/v16.20.0/bin/pm2 start '/home/ubuntu/.nvm/versions/node/v16.20.0/bin/npm start'",
     ]
   }
 
@@ -48,7 +50,7 @@ resource "null_resource" "delete_output" {
 
   provisioner "local-exec" {
     when    = destroy
-    command = "{} > instance-details.json && {} > rds-details.json && {} > s3-details.json"
+    command = "echo {} > instance-details.json && echo {} > rds-details.json && echo {} > s3-details.json"
   }
 
 }
