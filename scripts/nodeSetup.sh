@@ -2,10 +2,9 @@
 
 echo '>> CONFIGURING NODE SETUP .....'
 cd ~
-sudo curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
-sudo apt-get install -y nodejs
-sudo mkdir ~/.npm-global
-sudo npm config set prefix '~/.npm-global'
-echo 'export PATH=~/.npm-global/bin:$PATH' >> ~/.profile
-source ~/.profile
+sudo curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+. ~/.nvm/nvm.sh
+sudo apt-get update
+nvm install 16
+npm install -g pm2
 echo '<<   NODE SETUP DONE   >>'

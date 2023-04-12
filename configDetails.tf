@@ -1,7 +1,11 @@
 resource "null_resource" "save_output" {
-  provisioner "local-exec" {
-    command = "terraform output -json > output.json"
-  }
+
+  depends_on = [
+    aws_db_instance.strapi,
+    aws_instance.strapi,
+    aws_s3_bucket.strapi_s3,
+  ]
+
   connection {
     type        = "ssh"
     host        = aws_instance.strapi.public_ip
@@ -11,8 +15,18 @@ resource "null_resource" "save_output" {
   }
 
   provisioner "file" {
-    source      = "./output.json"
-    destination = "/home/ubuntu/output.json"
+    source      = "./instance-details.json"
+    destination = "/home/ubuntu/instance-details.json"
+  }
+
+  provisioner "file" {
+    source      = "./rds-details.json"
+    destination = "/home/ubuntu/rds-details.json"
+  }
+
+  provisioner "file" {
+    source      = "./s3-details.json"
+    destination = "/home/ubuntu/s3-details.json"
   }
 
   provisioner "remote-exec" {
@@ -21,23 +35,20 @@ resource "null_resource" "save_output" {
       "pip3 install python-dotenv",
       "python3 /home/ubuntu/configENV.py",
       "cd /home/ubuntu/strapiApp/",
-      "sudo npm install pm2@latest -g",
-
+      "npm install",
+      "pm2 start 'npm start'",
     ]
   }
 
-  depends_on = [
-    aws_instance.strapi,
-    aws_db_instance.strapi,
-    aws_s3_bucket.strapi_s3,
-  ]
+
 }
+
 
 resource "null_resource" "delete_output" {
 
   provisioner "local-exec" {
     when    = destroy
-    command = "> output.json"
+    command = "{} > instance-details.json && {} > rds-details.json && {} > s3-details.json"
   }
 
 }

@@ -11,8 +11,15 @@ resource "aws_db_instance" "strapi" {
   publicly_accessible    = true
   skip_final_snapshot    = true
 
+
   provisioner "local-exec" {
-    command = "terraform output -json >> infrastructure.json"
+    command = <<EOF
+      echo '{
+        "database_hostname": "${aws_db_instance.strapi.address}",
+        "database_name": "${aws_db_instance.strapi.db_name}",
+        "database_username": "${aws_db_instance.strapi.username}"
+      }' > rds-details.json
+    EOF
   }
 }
 

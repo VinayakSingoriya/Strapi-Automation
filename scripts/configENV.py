@@ -2,31 +2,55 @@ from dotenv import set_key, load_dotenv
 import json
 import os    
 
-file_path = "/home/ubuntu/output.json"
-if os.path.exists(file_path):
-    blank_json = {}
-    try:
-      f = open(file_path, "r")
-      data = json.load(f)
-      f.close()
-    except:
-      print("Decode error in .env file")
-else : 
-   print(".env path is wrong or does not exist")
+# file_path = "/home/ubuntu/output.json"
+rootPath = '/home/ubuntu/'
+
+
+try:
+    # Load instance.json
+    with open(f'{rootPath}/instance-details.json', 'r') as f:
+        instance_data = json.load(f)
+        print(instance_data)
+except FileNotFoundError:
+    print("Error: instance-details.json not found")
+    instance_data = {}
+
+try:
+    # Load rds.json
+    with open(f'{rootPath}/rds-details.json', 'r') as f:
+        rds_data = json.load(f)
+        print(rds_data)
+except FileNotFoundError:
+    print("Error: rds-details.json not found")
+    rds_data = {}
+
+try:
+    # Load s3.json
+    with open(f'{rootPath}/s3-details.json', 'r') as f:
+        s3_data = json.load(f)
+        print(s3_data)
+except FileNotFoundError:
+    print("Error: s3-details.json not found")
+    s3_data = {}
+
 
 # Load all the values
 node_env = 'production'
 
-database_host = data['AWS_RDS_Details']['value']['db_hostname']
-database_name = data['AWS_RDS_Details']['value']['db_name']
-database_username = data['AWS_RDS_Details']['value']['db_username']
+
+#DataBase
+database_host = rds_data['database_hostname']
+database_name = rds_data['database_name']
+database_username = rds_data['database_username']
 database_password = 'password'
 
+#AWS Access
 aws_access_key_id = 'AKIA2WXHFVL4V66VYRAY'
 aws_access_secret = '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'
 
-aws_region = data['AWS_S3_BUCKET_DETAILS']['value']['s3_bucket_region']
-aws_bucket_name = data['AWS_S3_BUCKET_DETAILS']['value']['s3_bucket_name']
+#S3_Bucket
+aws_region = s3_data['s3_bucket_region']
+aws_bucket_name = s3_data['s3_bucket_name']
 
 envPath = '/home/ubuntu/strapiApp/.env'
 load_dotenv(envPath)

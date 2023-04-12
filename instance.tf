@@ -89,6 +89,13 @@ resource "aws_instance" "strapi" {
     ]
   }
 
-
+  provisioner "local-exec" {
+    command = <<EOF
+      echo '{
+        "instance_id": "${aws_instance.strapi.id}",
+        "public_ip": "${aws_instance.strapi.public_ip}"
+      }' > instance-details.json
+    EOF
+  }
 
 }
