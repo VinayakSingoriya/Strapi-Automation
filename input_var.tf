@@ -59,12 +59,24 @@ variable "instance_security_group_name" {
 variable "project_root_path" {
   type = string
 }
+variable "terraform_root_path" {
+  type = string
+
+}
 
 variable "gitUsername" {
   type = string
 }
 
 variable "gitPassword" {
+  type = string
+}
+
+variable "your_username" {
+  type = string
+}
+
+variable "your_repo" {
   type = string
 }
 

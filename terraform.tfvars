@@ -24,8 +24,13 @@ db_username = "strapi"
 db_password = "password"
 
 #path
-project_root_path = "/home/vinayak/Desktop/strapiApp"
+project_root_path   = "/home/vinayak/Desktop/Test/my-project"
+terraform_root_path = "/home/vinayak/Desktop/strapi_automation/terraform_dir"
 
 #Git Credentials
-gitUsername = "VinayakSingoriya"
-gitPassword = "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"
+# git clone https://$GIT_USERNAME:$GIT_PASSWORD@github.com/your_username/your_repo.git
+
+gitUsername   = "VinayakSingoriya"                         #GIT_USERNAME
+gitPassword   = "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" #GIT_PASSWORD
+your_username = "VinayakSingoriya"
+your_repo     = "test"

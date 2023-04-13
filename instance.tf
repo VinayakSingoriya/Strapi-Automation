@@ -56,12 +56,12 @@ resource "aws_instance" "strapi" {
   }
 
   provisioner "local-exec" {
-    command = "scripts/localConfig.sh"
+    command = "scripts/localConfig.sh ${var.project_root_path} ${var.terraform_root_path}"
   }
 
   provisioner "remote-exec" {
     inline = [
-      "/home/ubuntu/.scripts/pullCode.sh ${var.gitUsername} ${var.gitPassword}",
+      "/home/ubuntu/.scripts/pullCode.sh ${var.gitUsername} ${var.gitPassword} ${var.your_username} ${var.your_repo}",
     ]
   }
 
