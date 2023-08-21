@@ -29,7 +29,8 @@ variable "private_key_path" {
 }
 
 variable "public_key_path" {
-  type = string
+  type      = string
+  sensitive = true
 }
 
 variable "inbound_ports" {
@@ -79,4 +80,9 @@ variable "your_username" {
 variable "your_repo" {
   type = string
 }
+
+variable "webhook_secret" {
+  type = string
+}
+
 

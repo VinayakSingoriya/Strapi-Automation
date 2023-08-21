@@ -1,4 +1,4 @@
-resource "null_resource" "save_output" {
+resource "null_resource" "save_output_and_deploy" {
 
   depends_on = [
     aws_db_instance.strapi,
