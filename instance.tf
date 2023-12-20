@@ -24,6 +24,7 @@ resource "aws_instance" "strapi" {
   security_groups = [aws_security_group.strapi_sg.name]
   key_name        = aws_key_pair.deployer.key_name
 
+
   tags = {
     Name = "Strapi_app"
   }
@@ -47,13 +48,13 @@ resource "aws_instance" "strapi" {
   }
 
 
-  provisioner "remote-exec" {
-    inline = [
-      # "sudo chmod +x /home/ubuntu/.config/*",
-      "sudo chmod +x /home/ubuntu/.scripts/*",
-      "/home/ubuntu/.scripts/nodeSetup.sh",
-    ]
-  }
+  # provisioner "remote-exec" {
+  #   inline = [
+  #     # "sudo chmod +x /home/ubuntu/.config/*",
+  #     "sudo chmod +x /home/ubuntu/.scripts/*",
+  #     "/home/ubuntu/.scripts/nodeSetup.sh",
+  #   ]
+  # }
 
   provisioner "local-exec" {
     command = "scripts/localConfig.sh ${var.project_root_path} ${var.terraform_root_path}"
@@ -61,6 +62,7 @@ resource "aws_instance" "strapi" {
 
   provisioner "remote-exec" {
     inline = [
+      "sudo chmod +x /home/ubuntu/.scripts/*",
       "/home/ubuntu/.scripts/pullCode.sh ${var.gitUsername} ${var.gitPassword} ${var.your_username} ${var.your_repo}",
     ]
   }
@@ -70,6 +72,10 @@ resource "aws_instance" "strapi" {
     destination = "/home/ubuntu/strapiApp/.env"
   }
 
+}
+
+resource "null_resource" "instance_details" {
+
   provisioner "local-exec" {
     command = <<EOF
       echo '{
@@ -78,5 +84,4 @@ resource "aws_instance" "strapi" {
       }' > ./output/instance-details.json
     EOF
   }
-
 }

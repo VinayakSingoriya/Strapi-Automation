@@ -4,13 +4,16 @@ resource "aws_db_instance" "strapi" {
   instance_class         = "db.t3.micro"
   allocated_storage      = 5
   engine                 = "postgres"
-  engine_version         = "10.23"
+  engine_version         = "11.22"
   username               = var.db_username
   password               = var.db_password
   vpc_security_group_ids = [aws_security_group.db_sg.id]
   publicly_accessible    = true
   skip_final_snapshot    = true
 
+}
+
+resource "null_resource" "rds_details" {
 
   provisioner "local-exec" {
     command = <<EOF
@@ -21,5 +24,5 @@ resource "aws_db_instance" "strapi" {
       }' > ./output/rds-details.json
     EOF
   }
-}
 
+}

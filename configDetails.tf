@@ -22,6 +22,7 @@ resource "null_resource" "save_output_and_deploy" {
   provisioner "remote-exec" {
     inline = [
       "/home/ubuntu/.scripts/setENV.sh ${var.access_key} ${var.secret_key}",
+      "/home/ubuntu/.scripts/nodeSetup.sh",
       "/home/ubuntu/.scripts/deployStrapi.sh",
       "/home/ubuntu/.scripts/nginxSetup.sh"
     ]

@@ -5,6 +5,9 @@ resource "aws_s3_bucket" "strapi_s3" {
     Name = "Strapi"
   }
 
+}
+
+resource "null_resource" "s3_details" {
 
   provisioner "local-exec" {
     command = <<EOF
@@ -14,6 +17,7 @@ resource "aws_s3_bucket" "strapi_s3" {
       }' > ./output/s3-details.json
     EOF
   }
+
 }
 
 resource "aws_s3_bucket_public_access_block" "strapi_s3" {

@@ -41,7 +41,7 @@ ssh-keygen
 
 ### 3. Update Terraform Variables
 
-Edit the terraform.tfvars file and provide the necessary key-value pairs based on your AWS environment and Strapi app configuration.
+Create a terraform.tfvars file and provide the necessary key-value pairs based on your AWS environment and Strapi app configuration.
 
 ```
 # Region and Access Credentials
@@ -85,6 +85,7 @@ your_repo     = ""
 ### 4. Terraform Initialization
 
 Run the following commands to initialize Terraform and plan the infrastructure.
+
  ```bash
  terraform init
  terraform plan
